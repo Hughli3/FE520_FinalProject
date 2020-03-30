@@ -5,6 +5,6 @@
 3. Display stock price and volume information on web pages (Yahoo Finance).
 
 ## extra features
-1. Use React as front end framework 
-2. 
+1. Use Bootstrap as front end framework 
+2. Use gulp to minify the code
 3. 
