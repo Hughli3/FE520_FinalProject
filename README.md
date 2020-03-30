@@ -2,7 +2,7 @@
 My FE520 Final Project
 
 ## Enviroment 
-Package management: Anaconda
+Package management tool: Anaconda, node.js
 Language: Pyhon 3.8.2
 
 ## Enviroment Init
@@ -24,6 +24,7 @@ conda activate FE520
 ## Install packages 
 
 ```
-conda install flask
+conda install --name FE520 flask
+conda install --name FE520 ipykernel -y
 
-```
+```
