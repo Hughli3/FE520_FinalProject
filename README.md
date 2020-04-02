@@ -1,6 +1,9 @@
 # FE520_FinalProject
 My FE520 Final Project
 
+## Team member :
+Zheng Li, Jianing Zhang, Wenxuan Wang
+
 ## Enviroment 
 Package management tool: Anaconda, node.js
 Language: Pyhon 3.8.2
