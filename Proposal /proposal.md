@@ -27,3 +27,6 @@ Use time series to predict the future stock price trend (if we have enough time)
    - display stock market trend in the past week
    - Select a certain stock and display the daily opening price, closing price, high price, low price, trading volume and fluctuations in the past week.
 
+## Github Repo
+
+https://github.com/Hughli3/FE520_FinalProject
