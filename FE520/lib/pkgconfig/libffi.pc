@@ -1,0 +1,11 @@
+prefix=/Users/hughli/Documents/Learning/Share/OneDrive/abroad/Stevens/Courses/FE520/FE520_FinalProject/FE520
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+toolexeclibdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: libffi
+Description: Library supporting Foreign Function Interfaces
+Version: 3.2.1
+Libs: -L${toolexeclibdir} -lffi
+Cflags: -I${includedir}

@@ -1,0 +1,9 @@
+prefix=/Users/hughli/Documents/Learning/Share/OneDrive/abroad/Stevens/Courses/FE520/FE520_FinalProject/FE520
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: OpenSSL
+Description: Secure Sockets Layer and cryptography libraries and tools
+Version: 1.1.1f
+Requires: libssl libcrypto
