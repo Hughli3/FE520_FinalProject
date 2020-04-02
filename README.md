@@ -16,26 +16,3 @@ Language: Pyhon 3.8.2
 4. type in `python -m flask run`
 5. Hit 'Enter'
 
-## Enviroment Init
-Check the existing enviroment
-```
-conda env list
-```
-
-If you don't have the conda enviromnt named FE520, please use the code below to crate a new one.
-```
-conda create -n FE520 python=3.8.2
-```
-
-Switch to the new created environment
-```
-conda activate FE520
-```
-
-## Install packages 
-
-```
-conda install --name FE520 flask
-conda install --name FE520 ipykernel -y
-
-```
