@@ -17,16 +17,18 @@ We were learning how to build a web server through web-resources and doing pre-r
 ## 4. Possible methodology if you have some idea (optional)
 Use time series to predict the future stock price trend (if we have enough time)
 ## 5. Project plan: list the tasks you need to take to complete the project.
-1. Design database
+1. Set up environment (finished )
+2. Design database(Apr 3 - Apr 9)
     - use mongodb to build our database
-2. Build server backend and frontend 
+3. Build server backend and frontend(Apr 10 - Apr 25) 
     - use flask to build the backend 
     - use bootstrap as frontend framework
-3. Fetch data by using Yahoo API and display the data
+4. Fetch data by using Yahoo API and display the data (Apr 25 - Apr 30)
    - display real time price by choose a certain stock
    - display stock market trend in the past week
    - Select a certain stock and display the daily opening price, closing price, high price, low price, trading volume and fluctuations in the past week.
 
+5. Debug (May 1 - May 10)
 ## Github Repo
 
 https://github.com/Hughli3/FE520_FinalProject
