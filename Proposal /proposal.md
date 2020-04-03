@@ -24,10 +24,10 @@ Use some stock indicator, such as RSI, KDG and MACD, to tell the user buy or sel
    - display stock market trend in the past week
    - Select a certain stock and display the daily opening price, closing price, high price, low price, trading volume and fluctuations in the past week.
 
-4. 
-4. Design database(Apr 3 - Apr 9)
+4.  Design database(Apr 26 - May 1) Possibly do, if we have enough time
     - use mongodb to build our database
-5. Debug (May 1 - May 10)
+5. Design Backtest system.(Apr 26 - May 1) Possibly do, if we have enough time
+6. Debug (May 1 - May 5)
 ## Github Repo
 
 https://github.com/Hughli3/FE520_FinalProject
