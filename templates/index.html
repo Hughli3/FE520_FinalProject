@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block header %}
+
+{% endblock %}
+
+{% block body%}
+<h1>Template</h1>
+
+<div class="contend">
+    <h1>Finnace Data</h1>
+    <table>
+        <tr>
+            <th>1</th>
+            <th>2</th>
+            <th>3</th>
+
+        </tr>
+    </table>
+    <form action="/" method="POST">
+        <label for="stock_name"> Please input the stock name:</label>
+    <input type="text" name="stock_name" id="stock_name">
+    <label for="start_date"> Start Date</label>
+    <input type="date" name="start_date" id="start_date">
+    <label for="start_date"> End Date</label>
+    <input type="date" name="end_date" id="end_date">
+    <input type="submit" name="submit" value="search">
+    </form>
+</div>
+{% endblock %}
