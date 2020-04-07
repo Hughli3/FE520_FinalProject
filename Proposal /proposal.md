@@ -13,7 +13,7 @@ From another aspect, we want to learn and try how to apply data analysis on the 
 ## 3. Related work (Reference and what you have done before)
 We were learning how to build a web server through web-resources and doing pre-research on related areas we needed such as how to build frontend, backend. We also did some research on Mysql and tried to understand how to use it to store and fetch data.
 ## 4. Possible methodology if you have some idea (optional)
-Use some stock indicator, such as RSI, KDG and MACD, to tell the user buy or sell the stock.
+Use some stock indicators, such as RSI, KDG, and MACD, to provide users some information about buying or sell the stock.
 ## 5. Project plan: list the tasks you need to take to complete the project.
 1. Set up environment (finished )
 2.  Build server backend and frontend(Apr 3 - Apr 15) 
@@ -28,6 +28,9 @@ Use some stock indicator, such as RSI, KDG and MACD, to tell the user buy or sel
     - use mongodb to build our database
 5. Design Backtest system.(Apr 26 - May 1) Possibly do, if we have enough time
 6. Debug (May 1 - May 5)
+7. Prepare for the presentation(May 3 - May 6).
+
+
 ## Github Repo
 
 https://github.com/Hughli3/FE520_FinalProject
