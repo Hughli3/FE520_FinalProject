@@ -15,7 +15,7 @@ We were learning how to build a web server through web-resources and doing pre-r
 ## 4. Possible methodology if you have some idea (optional)
 Use some stock indicators, such as RSI, KDG, and MACD, to provide users some information about buying or sell the stock.
 ## 5. Project plan: list the tasks you need to take to complete the project.
-1. Set up environment (finished )
+1. Set up environment (finished on Apr 3)
 2.  Build server backend and frontend(Apr 3 - Apr 15) 
     - use flask to build the backend 
     - use bootstrap as frontend framework
