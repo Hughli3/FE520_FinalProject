@@ -5,26 +5,40 @@
 {% endblock %}
 
 {% block body%}
-<h1>Template</h1>
+<header>
+    <div class="contend">
+        <h1>Finnace Data</h1>
+        <div class="container-fluid">
+            <!--build a search form-->
+              <form style="padding-top: 5px" method="post">
+                <div class="form-row justify-content-center">
+                  <div class="col-lg-3">
+                    <label for="search1" class="col-6"> Stock Code</label>
+                    <input class="form-control col-9" type="search" placeholder="Please input stock code" name="search" id="search1">
+                  </div>
+                  <div class="col-lg-3">
+                    <label for="start_date" class="col-6"> Start Date</label>
+                    <input type="date" name="start_date" id="start_date" class="form-control col-6">
+                  </div>
+                  <div class="col-lg-3">
+                    <label for="start_date" class="col-6">End Date</label>
+                    <input type="date" name="end_date" id="end_date" class="form-control col-6">
+                  </div>
+                  <div class="col-lg-1 searchForm">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+    
+    </div>
+</header>
+<div class="row justify-content-center">
+    <div class="col-8">
+      <div class="alert alert-light" role="alert">
+        <strong>{{sign}}</strong>
+      </div>
+    </div>
+  </div>
 
-<div class="contend">
-    <h1>Finnace Data</h1>
-    <table>
-        <tr>
-            <th>1</th>
-            <th>2</th>
-            <th>3</th>
-
-        </tr>
-    </table>
-    <form action="/" method="POST">
-        <label for="stock_name"> Please input the stock name:</label>
-    <input type="text" name="stock_name" id="stock_name">
-    <label for="start_date"> Start Date</label>
-    <input type="date" name="start_date" id="start_date">
-    <label for="start_date"> End Date</label>
-    <input type="date" name="end_date" id="end_date">
-    <input type="submit" name="submit" value="search">
-    </form>
-</div>
 {% endblock %}

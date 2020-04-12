@@ -12,7 +12,7 @@ def index():
         else:
             return render_template("index.html")
     except Exception as e:
-        print(e) 
+        print(e)
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)

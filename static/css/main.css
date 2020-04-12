@@ -1,4 +1,14 @@
 body {
-    color:#2C3E50 
+    color:#ffffff 
     
+}
+
+.searchForm {
+    align-items:center;
+    vertical-align: middle;
+}
+
+header{
+    background-color: #563d7c ;
+    /* Background second option #f9f9fa */
 }
