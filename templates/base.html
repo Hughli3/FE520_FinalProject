@@ -8,11 +8,17 @@
     <!--Import Bootstrap core js-->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     <!--import Bootstrap core CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/fontawesome.min.css') }}">
+
     {% block head %} {% endblock %}
 </head>
 <body>
     
     {% block body %} {% endblock %}
 </body>
+<script src="{{ url_for('static', filename='js/jquery-3.5.0.min.js') }}"></script>
+
 <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/search.js') }}"></script>
+<script src="https://cdn.plot.ly/plotly-latest.min.js" charset="utf-8"></script>
 </html>
