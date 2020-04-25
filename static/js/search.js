@@ -16,9 +16,9 @@ $(document).ready(function() {
 	// update button tooltip on hover
 	$("#search-btn").hover(function() {
 		if (isEmpty($("#search-input").val())) {
-			$(this).attr("title", "Open a random Wikipedia article.");
+			$(this).attr("title", "Search the S&P Global Ratings");
 		} else {
-			$(this).attr("title", "Search Wikipedia for '" + $("#search-input").val() + "'.");
+			$(this).attr("title", "Search Yahoo finance for '" + $("#search-input").val() + "'.");
 		}
 	});
 
@@ -66,10 +66,12 @@ function isEmpty(value) {
 }
 
 function inputInactive() {
+	// To tell this box don't has an input value
 	$("#search-form").removeClass("hasInput");
 }
 
 function inputActive() {
+	// To tell this box has an input value
 	$("#search-form").addClass("hasInput");
 }
 
@@ -101,6 +103,7 @@ function searchWikipedia(searchTerm) {
 }
 
 function openRandomArticle() {
+	// Search stock information
 	var win = window.open('https://en.wikipedia.org/wiki/Special:Random', '_blank');
 	if (win) {
 		win.focus(); // Browser has allowed link to be opened
