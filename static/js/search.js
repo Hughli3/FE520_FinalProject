@@ -137,11 +137,11 @@ function getSearchResults(searchTerm) {
 	$.getJSON(endPoint + params + "&callback=?", function(data) {
 
 		if ('undefined' !== typeof data.query) {
-			$("#cards").append(resultCardHtml(data.query.pages));
+			$("#stockPlot").append(resultCardHtml(data.query.pages));
 			// manually set height of card images, since the width is already known
 			setCardImgHeight();
 		} else {
-			$("#cards").append(encapsulate("No results found", "p", ""));
+			$("#stockPlot").append(encapsulate("No results found", "p", ""));
 		}
 
 	}).fail(function(jqXHR, status, error) {
@@ -150,25 +150,25 @@ function getSearchResults(searchTerm) {
 }
 
 // Build cards elements from 'pages' array
-function resultCardHtml(pages) {
-	var html = "";
-	pages.forEach(function(page) {
-		var imgSrc = 'undefined' !== typeof page.thumbnail ?
-			page.thumbnail.source : "https://placehold.it/200x150/e6e6e6?text=Image+unavailable";
-		// build elements to be appended to #cards
-		var image = encapsulate(false, "img", "src='" + imgSrc + "' alt='Main Wikipedia image for " + page.title + "'");
-		var imageDiv = encapsulate(image, "div", "class='card-image'");
-		var title = encapsulate(page.title, "h2", "");
-		var titleDiv = encapsulate(title, "div", "class='card-title'");
-		var text = encapsulate(page.extract, "p", "");
-		var textDiv = encapsulate(text, "div", "class='card-text'");
-		var action = encapsulate("READ MORE", "a", "href='" + page.canonicalurl + "' target='_blank'");
-		var actionDiv = encapsulate(action, "div", "class='card-actions'");
-		html = html + encapsulate(imageDiv + titleDiv + textDiv + actionDiv, "div", "class='card'");
-	});
+// function resultCardHtml(pages) {
+// 	var html = "";
+// 	pages.forEach(function(page) {
+// 		var imgSrc = 'undefined' !== typeof page.thumbnail ?
+// 			page.thumbnail.source : "https://placehold.it/200x150/e6e6e6?text=Image+unavailable";
+// 		// build elements to be appended to #cards
+// 		var image = encapsulate(false, "img", "src='" + imgSrc + "' alt='Main Wikipedia image for " + page.title + "'");
+// 		var imageDiv = encapsulate(image, "div", "class='card-image'");
+// 		var title = encapsulate(page.title, "h2", "");
+// 		var titleDiv = encapsulate(title, "div", "class='card-title'");
+// 		var text = encapsulate(page.extract, "p", "");
+// 		var textDiv = encapsulate(text, "div", "class='card-text'");
+// 		var action = encapsulate("READ MORE", "a", "href='" + page.canonicalurl + "' target='_blank'");
+// 		var actionDiv = encapsulate(action, "div", "class='card-actions'");
+// 		html = html + encapsulate(imageDiv + titleDiv + textDiv + actionDiv, "div", "class='card'");
+// 	});
 
-	return html;
-}
+// 	return html;
+// }
 
 // wrap content in given html tags, with given attributes
 function encapsulate(content, tag, attr) {
@@ -180,8 +180,8 @@ function encapsulate(content, tag, attr) {
 }
 
 // Manually set height of card image element
-function setCardImgHeight() {
-	$(".card-image img", "#cards").css('height', function() {
-		return Math.round($(this).width() * 0.75);
-	});
-}
+// function setCardImgHeight() {
+// 	$(".card-image img", "#stockPlot").css('height', function() {
+// 		return Math.round($(this).width() * 0.75);
+// 	});
+// }
