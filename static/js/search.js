@@ -25,9 +25,12 @@ $(document).ready(function() {
 	// main search functionality
 	$("#search-btn").on("click", function(e) {
 		e.preventDefault();
-		clearCurrentCards();
-		searchWikipedia($("#search-input").val());
+		clearCurrentResults();
+		// Add event here
+		searchStock($("#search-input").val());
+		// retrive the value in the search-input and add pass it into function searchStock
 		$("#search-clear").focus();
+		// The logo to clear the result
 	});
 
 	// bind input cancel functionality to click
@@ -75,7 +78,7 @@ function inputActive() {
 	$("#search-form").addClass("hasInput");
 }
 
-function clearCurrentCards() {
+function clearCurrentResults() {
 	$("#cards").empty();
 }
 
@@ -89,13 +92,16 @@ function showViewInitial() {
 }
 
 function showViewResults() {
+	// Make search smaller view
 	$("#container").removeClass("view-initial");
 	$("#container").addClass("view-results");
 }
 
-function searchWikipedia(searchTerm) {
+function searchStock(searchTerm) {
 	if (isEmpty(searchTerm)) {
-		openRandomArticle();
+		// openRandomArticle();
+		// Seach S$P information
+		getStockData("S$P")
 	} else {
 		getSearchResults(searchTerm);
 		showViewResults();
@@ -110,6 +116,20 @@ function openRandomArticle() {
 	} else {
 		alert('Please allow popups for this website'); // Browser has blocked link from opening
 	}
+}
+
+// use python program to search the stock information
+function getStockData(stockName){
+	
+	$.ajax({
+		url:"/stock",
+        type: "GET",
+		dataType: "json",
+		data:{"stockName":stockName},
+        success: function (data) {
+            console.log(data)
+        }
+        })
 }
 
 // Query Wikipedia api for search term
