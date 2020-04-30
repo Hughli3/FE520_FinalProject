@@ -18,10 +18,11 @@ def index():
             My_stock = stock_data.stock(stock_name, stock_name, start_date, end_date)
             data = My_stock.stock_data()
             
-            data = data.T.values.tolist()
+            data = data.to_json(orient="values", force_ascii=False)
             # print(data)
             # Need to return the json data 
-            return render_template("index.html", data=json.dumps(data), stock_name =stock_name)
+            return data
+            # return render_template("index.html", data=json.dumps(data), stock_name =stock_name)
 
         else:
             return render_template("index.html")

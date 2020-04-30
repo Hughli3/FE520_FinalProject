@@ -1,5 +1,3 @@
-// const plotly = require("plotly");
-
 $(document).ready(function() {
 	
 	// if (!inCodePenEditor()) {
@@ -28,7 +26,7 @@ $(document).ready(function() {
 	$("#search-btn").on("click", function(e) {
 		e.preventDefault();
 		clearCurrentResults();
-		console.log("fire")
+		// console.log("fire")
 		// Add event here
 		searchStock($("#search-input").val());
 		// retrive the value in the search-input and add pass it into function searchStock
@@ -123,6 +121,7 @@ function getStockData(stockName){
         success: function (data, stock_name) {
 			if(data){
 				console.log(data, stock_name)
+				console.log(typeof(data))
 				// call the plotpy function here
 				console.log("fire2");
 				plotStock(data, "Test")
@@ -145,7 +144,7 @@ function plotStock(data, stockName){
 		low:data[3],
 		open:data[4],
 		increasing: {line:{color:"red"}},
-		descreasing:{line:{color:green}},
+		descreasing:{line:{color:"green"}},
 
 		xaxis:"x",
 		yaxis:"y"
@@ -189,8 +188,8 @@ function plotStock(data, stockName){
 			autorange:true
 		}
 	}
-	plotly.plot("stockPlot", formatedData, layout);
-
+	Plotly.plot("stockPlot", formatedData, layout);
+	showViewResults()
 }
 
 // Query Wikipedia api for search term
