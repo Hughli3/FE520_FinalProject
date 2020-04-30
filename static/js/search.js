@@ -1,8 +1,10 @@
+// const plotly = require("plotly");
+
 $(document).ready(function() {
 	
-	if (!inCodePenEditor()) {
-		$("#search-input").focus();
-	}
+	// if (!inCodePenEditor()) {
+	// 	$("#search-input").focus();
+	// }
 
 	// mode of form elements changes on input
 	$("#search-input").on('input', function() {
@@ -16,7 +18,7 @@ $(document).ready(function() {
 	// update button tooltip on hover
 	$("#search-btn").hover(function() {
 		if (isEmpty($("#search-input").val())) {
-			$(this).attr("title", "Search the S&P Global Ratings");
+			$(this).attr("title", "Search the S&P 500 Global Ratings");
 		} else {
 			$(this).attr("title", "Search Yahoo finance for '" + $("#search-input").val() + "'.");
 		}
@@ -26,6 +28,7 @@ $(document).ready(function() {
 	$("#search-btn").on("click", function(e) {
 		e.preventDefault();
 		clearCurrentResults();
+		console.log("fire")
 		// Add event here
 		searchStock($("#search-input").val());
 		// retrive the value in the search-input and add pass it into function searchStock
@@ -46,15 +49,15 @@ $(document).ready(function() {
 	});
 
 	// bind window resize to manually adjust card image height, in order to maintain required aspect ratio of card images
-	$(window).resize(function() {
-		setCardImgHeight();
-	});
+	// $(window).resize(function() {
+	// 	setCardImgHeight();
+	// });
 
 });
 
-function inCodePenEditor() {
-	return !/full|debug/.test(window.location.pathname);
-}
+// function inCodePenEditor() {
+// 	return !/full|debug/.test(window.location.pathname);
+// }
 
 // initialise site view
 function cancelInput() {
@@ -101,73 +104,131 @@ function searchStock(searchTerm) {
 	if (isEmpty(searchTerm)) {
 		// openRandomArticle();
 		// Seach S$P information
-		getStockData("S$P")
+		getStockData("^GSPC")
 	} else {
-		getSearchResults(searchTerm);
+		getStockData(searchTerm);
 		showViewResults();
 	}
 }
 
-function openRandomArticle() {
-	// Search stock information
-	var win = window.open('https://en.wikipedia.org/wiki/Special:Random', '_blank');
-	if (win) {
-		win.focus(); // Browser has allowed link to be opened
-	} else {
-		alert('Please allow popups for this website'); // Browser has blocked link from opening
-	}
-}
 
 // use python program to search the stock information
 function getStockData(stockName){
-	
+	console.log("fire1");
 	$.ajax({
-		url:"/stock",
+		url:"/",
         type: "GET",
 		dataType: "json",
 		data:{"stockName":stockName},
-        success: function (data) {
-            console.log(data)
-        }
-        })
+        success: function (data, stock_name) {
+			if(data){
+				console.log(data, stock_name)
+				// call the plotpy function here
+				console.log("fire2");
+				plotStock(data, "Test")
+			}else{
+				console.log("fire3");
+			}
+			
+		},
+		error: function(e) {
+			console.log(e)	
+		}
+	})
+}
+
+function plotStock(data, stockName){
+	let trace = {
+		x: data[0],
+		close:data[1],
+		high:data[2],
+		low:data[3],
+		open:data[4],
+		increasing: {line:{color:"red"}},
+		descreasing:{line:{color:green}},
+
+		xaxis:"x",
+		yaxis:"y"
+	}
+	let formatedData = [trace]
+	let layout = {
+		dragmode: "zoom",
+		xaxis:{
+			autorange:true,
+			title:stockName,
+			rangeselector:{
+				x:0,
+				y:1.2,
+				xanchor:"left",
+				font:{size:10},
+				button:[{
+					step:"month",
+					stepmode:"backward",
+					count:1,
+					label:"1 month"
+				},
+				{
+					step: "month",
+					stepmode:"backward",
+					count: 3,
+					label: "3 months"
+				},
+				{
+					step:"month",
+					stepmode:"backward",
+					count: 6,
+					label:"6 months"
+				},
+				{
+					step: "all",
+					label: "All dates"
+				}]
+			}
+		},
+		yaxis:{
+			autorange:true
+		}
+	}
+	plotly.plot("stockPlot", formatedData, layout);
+
 }
 
 // Query Wikipedia api for search term
-function getSearchResults(searchTerm) {
-	var endPoint = "https://en.wikipedia.org/w/api.php";
-	// get url encoded query parameter string
-	var params = "?" + $.param({
-		action: "query",
-		generator: "search",
-		gsrsearch: searchTerm,
-		gsrnamespace: 0,
-		gsrlimit: 12, // search limit
-		prop: "pageimages|extracts|info",
-		pithumbsize: 200, // size of pageimages
-		pilimit: "max", // should be 'max' to get all the available relevant page images
-		exsentences: 1, // number of sentences to retrieve
-		exintro: 1, // retrieve only introductory content
-		explaintext: 1, // retrieve content in plain text
-		exlimit: "max", // should be 'max' to get all the available page extracts
-		inprop: "url",
-		format: "json",
-		formatversion: 2 // retrieves properly formatted json array
-	});
+// function getSearchResults(searchTerm) {
+// 	var endPoint = "https://en.wikipedia.org/w/api.php";
+// 	// get url encoded query parameter string
+// 	var params = "?" + $.param({
+// 		action: "query",
+// 		generator: "search",
+// 		gsrsearch: searchTerm,
+// 		gsrnamespace: 0,
+// 		gsrlimit: 12, // search limit
+// 		prop: "pageimages|extracts|info",
+// 		pithumbsize: 200, // size of pageimages
+// 		pilimit: "max", // should be 'max' to get all the available relevant page images
+// 		exsentences: 1, // number of sentences to retrieve
+// 		exintro: 1, // retrieve only introductory content
+// 		explaintext: 1, // retrieve content in plain text
+// 		exlimit: "max", // should be 'max' to get all the available page extracts
+// 		inprop: "url",
+// 		format: "json",
+// 		formatversion: 2 // retrieves properly formatted json array
+// 	});
 
-	$.getJSON(endPoint + params + "&callback=?", function(data) {
+// 	$.getJSON(endPoint + params + "&callback=?", function(data) {
 
-		if ('undefined' !== typeof data.query) {
-			$("#stockPlot").append(resultCardHtml(data.query.pages));
-			// manually set height of card images, since the width is already known
-			setCardImgHeight();
-		} else {
-			$("#stockPlot").append(encapsulate("No results found", "p", ""));
-		}
+// 		if ('undefined' !== typeof data.query) {
+// 			$("#stockPlot").append(resultCardHtml(data.query.pages));
+// 			// manually set height of card images, since the width is already known
+// 			setCardImgHeight();
+// 		} else {
+// 			$("#stockPlot").append(encapsulate("No results found", "p", ""));
+// 		}
 
-	}).fail(function(jqXHR, status, error) {
-		console.log(jqXHR.responseText);
-	});
-}
+// 	}).fail(function(jqXHR, status, error) {
+// 		console.log(jqXHR.responseText);
+// 	});
+// }
 
 // Build cards elements from 'pages' array
 // function resultCardHtml(pages) {

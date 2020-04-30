@@ -14,9 +14,9 @@
 					<h1>Stock Search Engine</h1>
 				</div>
 				<form id="search-form" class="flex-inline" method="GET">
-					<input id="search-input" type="text" autocomplete="off" tabindex="1" autocapitalize="off" autocorrect="off" name="search-query" placeholder="Stock name or Stock code" />
+					<input id="search-input" type="text" autocomplete="off" tabindex="1" autocapitalize="off" autocorrect="off" placeholder="Stock name or Stock code" />
 					<input id="search-clear" class "" type="button" tabindex="3" value="×">
-					<input id="search-btn" type="submit" tabindex="2" class="fa fa-wikipedia-w fa-lg" value="S" title="Search" />
+					<input id="search-btn" type="submit" tabindex="2" class="fa-lg" value="S" title="Search" />
 				</form>
 			</header>
 			<!-- <div id="credits">
@@ -25,12 +25,8 @@
 		</div> <!--/banner-overlay-->
 	</div> <!--/banner-->
 	<main id="results">
-        <div id="stockPlot" class="flex-row flex-wrap"></div>
-        {% include "view.html" %}
+		<div id="stockPlot" class="flex-row flex-wrap"></div>
 
-        {% block contend %}
-
-        {% endblock %}
 	</main> <!--/results-->
 </div> <!--/container-->
 
