@@ -146,7 +146,7 @@ function plotStock(data, stockName){
 		open:data[3],
 		increasing: {line:{color:"red"}},
 		descreasing:{line:{color:"green"}},
-
+		type: 'candlestick',
 		xaxis:"x",
 		yaxis:"y"
 	}
