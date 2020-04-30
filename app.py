@@ -5,7 +5,19 @@ import json
 ##
 app = Flask(__name__)
 
+# =========================== Helper Function ===========================
+def format_data(data) ->[] :
+    res = []
+    index = data.index.tolist()
+    data = data.T.values.tolist()
+    res.append(index)
+    res = res + data
+    return res
 
+def date_converter(date):
+    return "{}-{}-{}".format(date.year, date.month, date.day)
+
+# =========================== Main Function ===========================
 @app.route("/")
 def index():
     try:
@@ -17,55 +29,16 @@ def index():
             start_date = end_date - datetime.timedelta(days=1095)
             My_stock = stock_data.stock(stock_name, stock_name, start_date, end_date)
             data = My_stock.stock_data()
-            
-            data = data.to_json(orient="values", force_ascii=False)
-            # print(data)
+            res = format_data(data)
+            # print(date)
             # Need to return the json data 
-            return data
-            # return render_template("index.html", data=json.dumps(data), stock_name =stock_name)
+            return json.dumps(res, default = date_converter)
 
         else:
             return render_template("index.html")
 
     except Exception as e:
         print(e)
-
-# @app.route("/stock",methods=["GET", "POST"])
-# def stock():
-#     try:
-#         if request.method == "GET":
-#             # print("here")
-#             print(request)
-#             stock_name = request.args.get("stockName")
-#             # stock_name, stok_code:str, start_date:[int], end_date:[int]
-#             end_date = datetime.date.today()
-#             # three years ago
-#             start_date = end_date - datetime.timedelta(days=1095)
-#             My_stock = stock_data.stock(stock_name, stock_name, start_date, end_date)
-#             data = My_stock.stock_data()
-#             print(data)
-#             data = data.T.values.tolist()
-#             return render_template("index.html", data=json.dumps(data), stock_name =stock_name)
-#     except Exception as e:
-#         print(e)
-
-# This route is only for debugging
-# @app.route("/hello/<name>")
-# def hello_there(name):
-#     now = datetime.now()
-#     formatted_now = now.strftime("%A, %d %B, %Y at %X")
-
-#     # Filter the name argument to letters only using regular expressions. URL arguments
-#     # can contain arbitrary text, so we restrict to safe characters only.
-#     match_object = re.match("[a-zA-Z]+", name)
-
-#     if match_object:
-#         clean_name = match_object.group(0)
-#     else:
-#         clean_name = "Friend"
-
-#     content = "Hello there, " + clean_name + "! It's " + formatted_now
-#     return content
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)

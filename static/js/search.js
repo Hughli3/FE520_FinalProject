@@ -6,13 +6,13 @@ $(document).ready(function() {
 
 	// mode of form elements changes on input
 	$("#search-input").on('input', function() {
-		if (isEmpty($("#search-input").val())) {
+		if (isEmpty($("#search-input").val()) ) {
 			inputInactive();
 		} else {
 			inputActive();
 		}
 	});
-
+	
 	// update button tooltip on hover
 	$("#search-btn").hover(function() {
 		if (isEmpty($("#search-input").val())) {
@@ -30,6 +30,7 @@ $(document).ready(function() {
 		// Add event here
 		searchStock($("#search-input").val());
 		// retrive the value in the search-input and add pass it into function searchStock
+
 		$("#search-clear").focus();
 		// The logo to clear the result
 	});
@@ -45,11 +46,6 @@ $(document).ready(function() {
 			cancelInput();
 		}
 	});
-
-	// bind window resize to manually adjust card image height, in order to maintain required aspect ratio of card images
-	// $(window).resize(function() {
-	// 	setCardImgHeight();
-	// });
 
 });
 
@@ -80,7 +76,7 @@ function inputActive() {
 }
 
 function clearCurrentResults() {
-	$("#cards").empty();
+	$("#stockPlot").empty();
 }
 
 function clearInputField() {
@@ -104,8 +100,13 @@ function searchStock(searchTerm) {
 		// Seach S$P information
 		getStockData("^GSPC")
 	} else {
-		getStockData(searchTerm);
-		showViewResults();
+		if(true){
+			getStockData(searchTerm);
+			showViewResults();
+		}else{
+			// TODO wait for the stock checker function
+			$("#stockPlot").append(encapsulate("No results found", "p", ""));
+		}
 	}
 }
 
@@ -139,10 +140,10 @@ function getStockData(stockName){
 function plotStock(data, stockName){
 	let trace = {
 		x: data[0],
-		close:data[1],
-		high:data[2],
-		low:data[3],
-		open:data[4],
+		close:data[4],
+		high:data[1],
+		low:data[2],
+		open:data[3],
 		increasing: {line:{color:"red"}},
 		descreasing:{line:{color:"green"}},
 
@@ -190,65 +191,14 @@ function plotStock(data, stockName){
 	}
 	Plotly.plot("stockPlot", formatedData, layout);
 	showViewResults()
+	
+	if($("#stockPlot").children().length == 0){
+		inputInactive();
+	}else {
+		inputActive();
+	}
 }
 
-// Query Wikipedia api for search term
-// function getSearchResults(searchTerm) {
-// 	var endPoint = "https://en.wikipedia.org/w/api.php";
-// 	// get url encoded query parameter string
-// 	var params = "?" + $.param({
-// 		action: "query",
-// 		generator: "search",
-// 		gsrsearch: searchTerm,
-// 		gsrnamespace: 0,
-// 		gsrlimit: 12, // search limit
-// 		prop: "pageimages|extracts|info",
-// 		pithumbsize: 200, // size of pageimages
-// 		pilimit: "max", // should be 'max' to get all the available relevant page images
-// 		exsentences: 1, // number of sentences to retrieve
-// 		exintro: 1, // retrieve only introductory content
-// 		explaintext: 1, // retrieve content in plain text
-// 		exlimit: "max", // should be 'max' to get all the available page extracts
-// 		inprop: "url",
-// 		format: "json",
-// 		formatversion: 2 // retrieves properly formatted json array
-// 	});
-
-// 	$.getJSON(endPoint + params + "&callback=?", function(data) {
-
-// 		if ('undefined' !== typeof data.query) {
-// 			$("#stockPlot").append(resultCardHtml(data.query.pages));
-// 			// manually set height of card images, since the width is already known
-// 			setCardImgHeight();
-// 		} else {
-// 			$("#stockPlot").append(encapsulate("No results found", "p", ""));
-// 		}
-
-// 	}).fail(function(jqXHR, status, error) {
-// 		console.log(jqXHR.responseText);
-// 	});
-// }
-
-// Build cards elements from 'pages' array
-// function resultCardHtml(pages) {
-// 	var html = "";
-// 	pages.forEach(function(page) {
-// 		var imgSrc = 'undefined' !== typeof page.thumbnail ?
-// 			page.thumbnail.source : "https://placehold.it/200x150/e6e6e6?text=Image+unavailable";
-// 		// build elements to be appended to #cards
-// 		var image = encapsulate(false, "img", "src='" + imgSrc + "' alt='Main Wikipedia image for " + page.title + "'");
-// 		var imageDiv = encapsulate(image, "div", "class='card-image'");
-// 		var title = encapsulate(page.title, "h2", "");
-// 		var titleDiv = encapsulate(title, "div", "class='card-title'");
-// 		var text = encapsulate(page.extract, "p", "");
-// 		var textDiv = encapsulate(text, "div", "class='card-text'");
-// 		var action = encapsulate("READ MORE", "a", "href='" + page.canonicalurl + "' target='_blank'");
-// 		var actionDiv = encapsulate(action, "div", "class='card-actions'");
-// 		html = html + encapsulate(imageDiv + titleDiv + textDiv + actionDiv, "div", "class='card'");
-// 	});
-
-// 	return html;
-// }
 
 // wrap content in given html tags, with given attributes
 function encapsulate(content, tag, attr) {

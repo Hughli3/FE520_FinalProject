@@ -20,11 +20,14 @@ class stock:
         Start Date : [year, month, day]
         """
         try:
-            print("OK1")
+            # print("OK1")
             stock = web.DataReader(self.stok_code, "yahoo", self.start_date, self.end_date)
             # if not stock:
             #     raise ValueError("%s not Found." %self.stok_code)
-            print("OK2")
+            # print("OK2")
+            Date = pd.DataFrame(stock.index)
+            Date["Date"].apply(lambda x: x.strftime("%Y-%m-%d"))
+            stock.index = Date["Date"]
             return stock
         except:
             return False
