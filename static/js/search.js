@@ -144,6 +144,7 @@ function plotStock(data, stockName){
 		high:data[1],
 		low:data[2],
 		open:data[3],
+		
 		increasing: {line:{color:"red"}},
 		descreasing:{line:{color:"green"}},
 		type: 'candlestick',
@@ -153,6 +154,7 @@ function plotStock(data, stockName){
 	let formatedData = [trace]
 	let layout = {
 		dragmode: "zoom",
+		showlegend: false,
 		xaxis:{
 			autorange:true,
 			title:stockName,

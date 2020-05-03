@@ -14,14 +14,13 @@ def rsi(data, time):
     rs = abs(u_ave/d_ave)
     rsi = 100 - (100/(1+rs))
     return rsi
-    pass
 
 
 def sma(data, window):
     weights = np.repeat(1.0, window)/ window
     smas = np.convolve(data, weights, 'valid')
     return smas
-    pass
+
 
 
 def macd(data):
@@ -30,4 +29,4 @@ def macd(data):
     macd = exp1 - exp2
     exp3 = macd.ewm(span=9, adjust=False).mean()
     return macd
-    pass
+

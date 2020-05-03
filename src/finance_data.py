@@ -3,7 +3,6 @@
 import pandas as pd
 import pandas_datareader.data as web   
 import datetime
-import matplotlib.pyplot as plt 
 import plotly.offline as po
 import plotly.graph_objs as go
 
