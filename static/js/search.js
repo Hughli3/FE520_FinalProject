@@ -101,6 +101,7 @@ function searchStock(searchTerm) {
 		getStockData("^GSPC")
 	} else {
 		if(true){
+			console.log(searchTerm);
 			getStockData(searchTerm);
 			showViewResults();
 		}else{
@@ -113,7 +114,7 @@ function searchStock(searchTerm) {
 
 // use python program to search the stock information
 function getStockData(stockName){
-	console.log("fire1");
+	// console.log("fire1");
 	$.ajax({
 		url:"/",
         type: "GET",
@@ -144,7 +145,7 @@ function plotStock(data, stockName){
 		high:data[1],
 		low:data[2],
 		open:data[3],
-		
+
 		increasing: {line:{color:"red"}},
 		descreasing:{line:{color:"green"}},
 		type: 'candlestick',
@@ -191,7 +192,7 @@ function plotStock(data, stockName){
 			autorange:true
 		}
 	}
-	Plotly.plot("stockPlot", formatedData, layout);
+	Plotly.newPlot("stockPlot", formatedData, layout);
 	showViewResults()
 	
 	if($("#stockPlot").children().length == 0){
