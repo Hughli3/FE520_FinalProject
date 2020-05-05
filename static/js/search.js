@@ -53,6 +53,7 @@ $(document).ready(function() {
 // 	return !/full|debug/.test(window.location.pathname);
 // }
 
+// ========================== change view function ==========================
 // initialise site view
 function cancelInput() {
 	clearInputField();
@@ -137,7 +138,7 @@ function getStockData(stockName){
 		}
 	})
 }
-
+// ========================== plot function ==========================
 function plotStock(data, stockName){
 	let trace = {
 		x: data[0],
@@ -218,3 +219,5 @@ function encapsulate(content, tag, attr) {
 // 		return Math.round($(this).width() * 0.75);
 // 	});
 // }
+
+// ========================== search optimization ==========================
