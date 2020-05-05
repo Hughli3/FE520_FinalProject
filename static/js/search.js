@@ -102,9 +102,20 @@ function searchStock(searchTerm) {
 		getStockData("^GSPC")
 	} else {
 		if(true){
-			console.log(searchTerm);
-			getStockData(searchTerm);
-			showViewResults();
+			//add for fuzzy query
+			readFileToArr('NYSE.txt',function(list){
+				let arr = fuzzQuerry(list, searhTerm.toUpperCase());
+				for(let i =0; i<arr.length;i++){
+					arr[i] = (arr[i].split("\t"))[0];
+				}
+				searchTerm = arr[0];
+				console.log(searchTerm);
+				getStockData(searchTerm);
+				showViewResults();
+			})
+			// console.log(searchTerm);
+			// getStockData(searchTerm);
+			// showViewResults();
 		}else{
 			// TODO wait for the stock checker function
 			$("#stockPlot").append(encapsulate("No results found", "p", ""));
@@ -221,3 +232,28 @@ function encapsulate(content, tag, attr) {
 // }
 
 // ========================== search optimization ==========================
+//---for fuzzy query
+let fs = require('fs');
+let readline = require('readline');
+function fuzzyQuery(list, keyWord){
+    let arr =[];
+    for(let i=0;i<list.length;i++){
+        if(list[i].match(keyWord) !=null){
+            arr.push(list[i]);
+        }
+    }
+    return arr;
+}
+function readFileToArr(fReadName, callback){
+    let fRead = fs.createReadStream(fReadName);
+    let objReadLine = readline.createInterface({
+        input:fRead
+    });
+    let arr = new Array();
+    objReadLine.on('line',function(line){
+        arr.push(line.toUpperCase());
+    });
+    objReadLine.on('close',function(){
+        callback(arr);
+    });
+}
