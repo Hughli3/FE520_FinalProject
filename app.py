@@ -2,9 +2,15 @@ from flask import Flask, render_template,url_for,request
 import datetime
 import src.finance_data as stock_data
 import json
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 ##
 app = Flask(__name__)
-
+limiter = Limiter(
+    app,
+    key_func=get_remote_address,
+    default_limits=["10 per minute"]
+)
 # =========================== Helper Function ===========================
 def format_data(data) ->[] :
     res = []
@@ -39,6 +45,11 @@ def index():
 
     except Exception as e:
         print(e)
+
+
+@limiter.exempt
+def ping():
+    return "Please try after one minute"
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)

@@ -5,7 +5,7 @@ My FE520 Final Project
 Zheng Li, Jianing Zhang, Wenxuan Wang
 
 ## Enviroment 
-Package management tool: Anaconda, node.js
+Package management tool: conda
 Language: Pyhon 3.8.2
 
 ## How to run?

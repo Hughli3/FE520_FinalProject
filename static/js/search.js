@@ -167,7 +167,7 @@ function plotStock(data, stockName){
 		high:data[1],
 		low:data[2],
 		open:data[3],
-
+		name:stockName,
 		increasing: {line: {color: 'green'}}, 
 		decreasing: {line: {color: 'red'}}, 
 		line: {color: 'rgba(31,119,180,1)'}, 
