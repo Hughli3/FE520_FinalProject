@@ -78,6 +78,7 @@ function inputActive() {
 
 function clearCurrentResults() {
 	$("#stockPlot").empty();
+	$("#stockTable").empty();
 }
 
 function clearInputField() {
@@ -139,6 +140,7 @@ function getStockData(stockName){
 				// call the plotpy function here
 				console.log("fire2");
 				plotStock(data, stockName) 
+				plotStockStat("noData", stockName)
 			}else{
 				// console.log("fire3");
 			}
@@ -287,7 +289,6 @@ function plotStock(data, stockName){
 					method: 'update'
 				}
 			]
-			
 		}
 	
 	]
@@ -295,7 +296,8 @@ function plotStock(data, stockName){
 	let layout = {
 		dragmode: "zoom",
 		showlegend: true,
-		  type: 'date',
+		type: 'date',
+		title:stockName,
 		// xaxis:{
 		// 	autorange: true,
 		// 	title:stockName,
@@ -324,9 +326,29 @@ function plotStock(data, stockName){
 
 // ========================== Table plot function ==========================
 function plotStockStat(data, stockName){
-	let values = [{
+	let values = [
+		[stockName], [20], ["Negative"], ["Sell"]
+	]
 
-	}]
+	let tableData = [
+		{
+			type:"table",
+			header: {
+				values: [["stock Name"], ["RSI"], ["MACD"], ["Buy/Sell"]],
+				align: "center",
+				line: {width: 1, color: 'black'},
+				fill: {color: "#F06A6A"},
+				font: {family: "Arial", size: 12, color: "white"}
+			  },
+			  cells: {
+				values: values,
+				align: "center",
+				line: {color: "black", width: 1},
+				font: {family: "Arial", size: 11, color: ["black"]}
+			  }
+		}
+	]
+	Plotly.newPlot('stockTable', tableData);
 }
 
 // ========================== Dom ==========================
