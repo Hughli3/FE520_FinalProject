@@ -103,16 +103,16 @@ function searchStock(searchTerm) {
 	} else {
 		if(true){
 			//add for fuzzy query
-			readFileToArr('NYSE.txt',function(list){
-				let arr = fuzzQuerry(list, searhTerm.toUpperCase());
-				for(let i =0; i<arr.length;i++){
-					arr[i] = (arr[i].split("\t"))[0];
-				}
-				searchTerm = arr[0];
-				console.log(searchTerm);
+			// readFileToArr('NYSE.txt',function(list){
+			// 	let arr = fuzzQuerry(list, searhTerm.toUpperCase());
+			// 	for(let i =0; i<arr.length;i++){
+			// 		arr[i] = (arr[i].split("\t"))[0];
+			// 	}
+			// 	searchTerm = arr[0];
+			// 	console.log(searchTerm);
 				getStockData(searchTerm);
 				showViewResults();
-			})
+			// })
 			// console.log(searchTerm);
 			// getStockData(searchTerm);
 			// showViewResults();
@@ -134,13 +134,13 @@ function getStockData(stockName){
 		data:{"stockName":stockName},
         success: function (data, stock_name) {
 			if(data){
-				console.log(data, stock_name)
-				console.log(typeof(data))
+				// console.log(data, stock_name)
+				// console.log(typeof(data))
 				// call the plotpy function here
 				console.log("fire2");
-				plotStock(data, "Test")
+				plotStock(data, "Test") // TODO
 			}else{
-				console.log("fire3");
+				// console.log("fire3");
 			}
 			
 		},
@@ -158,8 +158,9 @@ function plotStock(data, stockName){
 		low:data[2],
 		open:data[3],
 
-		increasing: {line:{color:"red"}},
-		descreasing:{line:{color:"green"}},
+		increasing: {line: {color: 'green'}}, 
+		decreasing: {line: {color: 'red'}}, 
+		line: {color: 'rgba(31,119,180,1)'}, 
 		type: 'candlestick',
 		xaxis:"x",
 		yaxis:"y"
@@ -168,8 +169,9 @@ function plotStock(data, stockName){
 	let layout = {
 		dragmode: "zoom",
 		showlegend: false,
+		  type: 'date',
 		xaxis:{
-			autorange:true,
+			autorange: true,
 			title:stockName,
 			rangeselector:{
 				x:0,
@@ -201,7 +203,8 @@ function plotStock(data, stockName){
 			}
 		},
 		yaxis:{
-			autorange:true
+			autorange:true,
+			type: 'linear'
 		}
 	}
 	Plotly.newPlot("stockPlot", formatedData, layout);
@@ -233,27 +236,27 @@ function encapsulate(content, tag, attr) {
 
 // ========================== search optimization ==========================
 //---for fuzzy query
-let fs = require('fs');
-let readline = require('readline');
-function fuzzyQuery(list, keyWord){
-    let arr =[];
-    for(let i=0;i<list.length;i++){
-        if(list[i].match(keyWord) !=null){
-            arr.push(list[i]);
-        }
-    }
-    return arr;
-}
-function readFileToArr(fReadName, callback){
-    let fRead = fs.createReadStream(fReadName);
-    let objReadLine = readline.createInterface({
-        input:fRead
-    });
-    let arr = new Array();
-    objReadLine.on('line',function(line){
-        arr.push(line.toUpperCase());
-    });
-    objReadLine.on('close',function(){
-        callback(arr);
-    });
-}
+// let fs = require('fs');
+// let readline = require('readline');
+// function fuzzyQuery(list, keyWord){
+//     let arr =[];
+//     for(let i=0;i<list.length;i++){
+//         if(list[i].match(keyWord) !=null){
+//             arr.push(list[i]);
+//         }
+//     }
+//     return arr;
+// }
+// function readFileToArr(fReadName, callback){
+//     let fRead = fs.createReadStream(fReadName);
+//     let objReadLine = readline.createInterface({
+//         input:fRead
+//     });
+//     let arr = new Array();
+//     objReadLine.on('line',function(line){
+//         arr.push(line.toUpperCase());
+//     });
+//     objReadLine.on('close',function(){
+//         callback(arr);
+//     });
+// }
