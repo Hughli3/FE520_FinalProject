@@ -96,13 +96,16 @@ function showViewResults() {
 	$("#container").addClass("view-results");
 }
 
+//require fuzzey
+const fuzzequery = require("./fuzzequery");
 function searchStock(searchTerm) {
 	if (isEmpty(searchTerm)) {
 		// openRandomArticle();
 		// Seach S$P information
 		getStockData("^GSPC")
 	} else {
-		if(true){
+		searchTerm = fuzzequery.fuzzyQuery(searchTerm);
+		if(searchTerm){
 			//add for fuzzy query
 			// readFileToArr('NYSE.txt',function(list){
 			// 	let arr = fuzzQuerry(list, searhTerm.toUpperCase());
