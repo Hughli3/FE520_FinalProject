@@ -104,7 +104,7 @@ function searchStock(searchTerm) {
 		// Seach S$P information
 		getStockData("^GSPC")
 	} else {
-		searchTerm = fuzzequery.fuzzyQuery(searchTerm);
+		searchTerm = fuzzyQuery(searchTerm);
 		if(searchTerm){
 			//add for fuzzy query
 			// readFileToArr('NYSE.txt',function(list){
@@ -372,28 +372,20 @@ function encapsulate(content, tag, attr) {
 // }
 
 // ========================== search optimization ==========================
-//---for fuzzy query
-// let fs = require('fs');
-// let readline = require('readline');
-// function fuzzyQuery(list, keyWord){
-//     let arr =[];
-//     for(let i=0;i<list.length;i++){
-//         if(list[i].match(keyWord) !=null){
-//             arr.push(list[i]);
-//         }
-//     }
-//     return arr;
-// }
-// function readFileToArr(fReadName, callback){
-//     let fRead = fs.createReadStream(fReadName);
-//     let objReadLine = readline.createInterface({
-//         input:fRead
-//     });
-//     let arr = new Array();
-//     objReadLine.on('line',function(line){
-//         arr.push(line.toUpperCase());
-//     });
-//     objReadLine.on('close',function(){
-//         callback(arr);
-//     });
-// }
+
+function fuzzyQuery(str){
+    let arr=[];
+    list = eval(tickList);
+    //console.log(list);
+    str = str.toUpperCase();
+    for(let i=0;i<list.length;i++){
+        //match the code first
+        if( (list[i].code).match(str) !=null){
+            arr.push(list[i].code);
+        }else if( ((list[i].name)).toUpperCase().match(str) !=null){
+            arr.push(list[i].code);
+        }
+    }
+
+    return arr[0];
+};
