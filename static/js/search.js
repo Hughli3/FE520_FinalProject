@@ -138,7 +138,7 @@ function getStockData(stockName){
 				// console.log(typeof(data))
 				// call the plotpy function here
 				console.log("fire2");
-				plotStock(data, "Test") // TODO
+				plotStock(data, stockName) 
 			}else{
 				// console.log("fire3");
 			}
@@ -149,9 +149,14 @@ function getStockData(stockName){
 		}
 	})
 }
-// ========================== plot function ==========================
+// ========================== figure plot function ==========================
 function plotStock(data, stockName){
-	let trace = {
+
+	let closeAvg = data[4].reduce((acc, val) => acc + val, 0) / data[4].length;
+	let lowAvg = data[1].reduce((acc, val) => acc + val, 0) / data[1].length;
+	let highAvg = data[2].reduce((acc, val) => acc + val, 0) / data[2].length;
+	let trace = [
+		{
 		x: data[0],
 		close:data[4],
 		high:data[1],
@@ -164,50 +169,150 @@ function plotStock(data, stockName){
 		type: 'candlestick',
 		xaxis:"x",
 		yaxis:"y"
+	},
+	{
+		x: data[0],
+		y:data[4],
+		mode:"lines",
+		name:"Close",
+		marker: {color: '#835AF1'},
+		visible:false,
+		width:0.5
+	},
+	{
+		x: data[0],
+		y:data[2],
+		mode: 'lines',
+		name: 'Low',
+		marker: {color: '#F06A6A'},
+		visible: false
+	},
+	{
+		x: data[0],
+		y:data[1],
+		mode: 'lines',
+		name: 'High',
+		marker: {color: '#33CFA5'},
+		visible: false
+	},
+	{
+		x: data[0],
+		y:data[0].map(a => closeAvg),
+		mode: 'lines',
+		name: 'Close average',
+		line: {color: '#835AF1',dash:"dash"},
+		visible: false
+	},
+	{
+		x: data[0],
+		y:data[0].map(a => lowAvg),
+		mode: 'lines',
+		name: 'Low average',
+		line: {color: '#F06A6A',dash:"dash"},
+		visible: false
+	},
+	{
+		x: data[0],
+		y:data[0].map(a => highAvg),
+		mode: 'lines',
+		name: 'High average',
+		line: {color: '#33CFA5',dash:"dash"},
+		visible: false
 	}
-	let formatedData = [trace]
+	]
+	// let formatedData = [trace]
+
+	let button_layer_1_height = 1.12;
+	let button_layer_2_height = 1.0;
+	let annotation_offset = 0.04;
+
+	let updatemenus = [
+		// {
+		// buttons:[
+		// 	{
+		// 		step: "all",
+		// 		label: "All dates"
+		// 	},
+		// 	{
+		// 		step:"month",
+		// 		stepmode:"backward",
+		// 		count:1,
+		// 		label:"1 month"
+		// 	},
+		// 	{
+		// 		step: "month",
+		// 		stepmode:"backward",
+		// 		count: 3,
+		// 		label: "3 months"
+		// 	},
+		// 	{
+		// 		step:"month",
+		// 		stepmode:"backward",
+		// 		count: 6,
+		// 		label:"6 months"
+		// 		}],
+		// 		direction: 'left',
+		// 		pad: {'r': 10, 't': 10},
+		// 		showactive: true,
+		// 		type: 'buttons',
+		// 		x: 0.1,
+		// 		xanchor: 'left',
+		// 		y: button_layer_1_height,
+		// 		yanchor: 'top'
+		// },
+		{
+			buttons:[
+				{
+					args: [{'visible': [true, false, false, false, false, false, false]},
+							{'title': `${stockName} Candle`}],
+					label: 'Candle',
+					method: 'update'
+				},
+				{
+					args: [{'visible': [false, true, false, false, true, false, false]},
+							{'title': `${stockName} Close`}],
+					label: 'Close',
+					method: 'update'
+				},
+				{
+					args: [{'visible': [false, false, true, false, false, true, false]},
+						   {'title': `${stockName} Low`}],
+					label: 'Low',
+					method: 'update'
+				},
+				{
+					args: [{'visible': [false, false, false, true, false, false, true]},
+						   {'title': `${stockName} High`}],
+					label: 'High',
+					method: 'update'
+				}
+			]
+			
+		}
+	
+	]
+
 	let layout = {
 		dragmode: "zoom",
-		showlegend: false,
+		showlegend: true,
 		  type: 'date',
-		xaxis:{
-			autorange: true,
-			title:stockName,
-			rangeselector:{
-				x:0,
-				y:1.2,
-				xanchor:"left",
-				font:{size:10},
-				button:[{
-					step:"month",
-					stepmode:"backward",
-					count:1,
-					label:"1 month"
-				},
-				{
-					step: "month",
-					stepmode:"backward",
-					count: 3,
-					label: "3 months"
-				},
-				{
-					step:"month",
-					stepmode:"backward",
-					count: 6,
-					label:"6 months"
-				},
-				{
-					step: "all",
-					label: "All dates"
-				}]
-			}
-		},
-		yaxis:{
-			autorange:true,
-			type: 'linear'
-		}
+		// xaxis:{
+		// 	autorange: true,
+		// 	title:stockName,
+		// 	rangeselector:{
+		// 		x:0,
+		// 		y:1.2,
+		// 		xanchor:"left",
+		// 		font:{size:10}
+		// 	}
+		// },
+		updatemenus:updatemenus
+		// yaxis:{
+		// 	autorange:true,
+		// 	type: 'linear'
+		// }
 	}
-	Plotly.newPlot("stockPlot", formatedData, layout);
+	Plotly.newPlot("stockPlot", trace, layout);
 	showViewResults()
 	
 	if($("#stockPlot").children().length == 0){
@@ -217,7 +322,14 @@ function plotStock(data, stockName){
 	}
 }
 
+// ========================== Table plot function ==========================
+function plotStockStat(data, stockName){
+	let values = [{
 
+	}]
+}
+
+// ========================== Dom ==========================
 // wrap content in given html tags, with given attributes
 function encapsulate(content, tag, attr) {
 	if (false === content) {
