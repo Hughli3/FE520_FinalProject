@@ -68,6 +68,7 @@ class Indicator():
         # this column indicate the histogram in macd chart
         self.data['MACD_diff'] = self.data['MACD'] - self.data['MACD_signal']
         self.data = round(self.data,2)
+        self.data = self.data.fillna(0)
         rsi_today = self.data.iloc[-1,6]
         monthly_sma = self.data.iloc[-1,9]
         macd_today = self.data.iloc[-1,10]
