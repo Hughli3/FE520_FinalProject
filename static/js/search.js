@@ -144,7 +144,8 @@ function getStockData(stockName){
 				let tableData = {
 					RSI:data[6][data[6].length - 1],
 					monthly_sma:data[9][data[9].length - 1],
-					MACD:data[10][data[10].length - 1]
+					MACD:data[10][data[10].length - 1],
+					data:data
 				}
 				plotStockStat(tableData, stockName)
 			}else{
@@ -353,7 +354,7 @@ function plotStock(data, stockName){
 // ========================== Table plot function ==========================
 function plotStockStat(data, stockName){
 	let values = [
-		[stockName], [data.RSI],[data.monthly_sma], [data.MACD], ["Sell"]
+		[stockName], [data.RSI],[data.monthly_sma], [data.MACD], [buy_sell(data.data)]
 	]
 
 	let tableData = [
@@ -412,3 +413,63 @@ function fuzzyQuery(str){
 
     return arr[0];
 };
+
+// ========================== Buy/Sell recommender ==========================
+function buy_sell(data){
+	let buy = 0;
+	let sell = 0;
+	let RSI = data[6][data[6].length - 1];
+	let allRSI = data[6];
+	let macdDiff = data[12];
+	let n = macdDiff.length
+	if (RSI >= 70){
+		return "This stock is overbought"
+	}
+	else if (RSI <= 30){
+		return "This stock is oversold"
+	}
+	else if (RSI >= 65){
+		return "We suggest to sell"
+	}
+	else if(RSI <= 35){
+		return "We suggest to buy"
+	}
+	else{
+		let a = "";
+		for(i=1; i < 11;i++){
+			if (macdDiff[n - i] == 0 && macdDiff[n - i - 1] > 0){
+				a = "Bearish,";
+				break
+			}
+			else if(macdDiff[n - i] == 0 && macdDiff[n - i] < 0){
+				a = "Bullish,"
+				break
+			}
+		}
+
+		for(i = 1; i < 6; i ++){
+			if (allRSI[n - i] > allRSI[n - i - 1]){
+				sell += 1;
+			}
+			else if (allRSI[n - i] < allRSI[n - i - 1]){
+				buy += 1
+			}
+			else if (Math.min(allRSI.splice(n-20,n-1)) == RSI){
+				sell = 0
+			}
+			else if (Math.max(allRS.slice(n-20,n-1)) == RSI){
+				buy = 0
+			}
+		}
+		let suggest = buy - sell;
+		if (suggest >= 3){
+			return a + "strongly recommend to buy";
+		}else if(suggest < 3){
+			return a + "strongly recommend to sell"
+		}else if (suggest > 0){
+			return a + "you can consider to buy"
+		}else if (suggest < 0){
+			return a + "you can consider to sell"
+		}
+	}
+}
