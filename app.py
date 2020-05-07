@@ -36,10 +36,10 @@ def index():
             start_date = end_date - datetime.timedelta(days=1095)
             my_stock = stock_data.stock(stock_name, stock_name, start_date, end_date)
             data = my_stock.stock_data()
-            # my_indictor = indicator.Indicator(data)
-            # data_with_indicator, rsi_today, monthly_sma, macd_today = my_indictor.add_indicator()
+            my_indictor = indicator.Indicator(data)
+            data_with_indicator, rsi_today, monthly_sma, macd_today = my_indictor.add_indicator()
             # print(data_with_indicator.shape)
-            res = format_data(data_with_indicator)
+            res = format_data(data)
             
             # print(date)
             # Need to return the json data 
