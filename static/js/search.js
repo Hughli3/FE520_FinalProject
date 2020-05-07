@@ -141,7 +141,12 @@ function getStockData(stockName){
 				// call the plotly function here
 				console.log("fire2");
 				plotStock(data, stockName) 
-				plotStockStat("noData", stockName)
+				let tableData = {
+					RSI:data[6][data[6].length - 1],
+					monthly_sma:data[9][data[9].length - 1],
+					MACD:data[10][data[10].length - 1]
+				}
+				plotStockStat(tableData, stockName)
 			}else{
 				console.log("fire3");
 			}
@@ -348,14 +353,14 @@ function plotStock(data, stockName){
 // ========================== Table plot function ==========================
 function plotStockStat(data, stockName){
 	let values = [
-		[stockName], [20], ["Negative"], ["Sell"]
+		[stockName], [data.RSI],[data.monthly_sma], [data.MACD], ["Sell"]
 	]
 
 	let tableData = [
 		{
 			type:"table",
 			header: {
-				values: [["stock Name"], ["RSI"], ["MACD"], ["Buy/Sell"]],
+				values: [["stock Name"], ["RSI"],["monthly_MA"], ["MACD"], ["Buy/Sell"]],
 				align: "center",
 				line: {width: 1, color: 'black'},
 				fill: {color: "#F06A6A"},

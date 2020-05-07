@@ -39,7 +39,7 @@ def index():
             my_indictor = indicator.Indicator(data)
             data_with_indicator, rsi_today, monthly_sma, macd_today = my_indictor.add_indicator()
             # print(data_with_indicator.shape)
-            res = format_data(data)
+            res = format_data(data_with_indicator)
             
             # print(date)
             # Need to return the json data 
