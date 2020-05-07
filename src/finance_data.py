@@ -3,8 +3,8 @@
 import pandas as pd
 import pandas_datareader.data as web   
 import datetime
-import plotly.offline as po
-import plotly.graph_objs as go
+# import plotly.offline as po
+# import plotly.graph_objs as go
 
 
 # ===================== Main functions =====================
