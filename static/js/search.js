@@ -142,9 +142,9 @@ function getStockData(stockName){
 				console.log("fire2");
 				plotStock(data, stockName) 
 				let tableData = {
-					RSI:data[6][data[6].length - 1],
-					monthly_sma:data[9][data[9].length - 1],
-					MACD:data[10][data[10].length - 1],
+					RSI:data[7][data[7].length - 1],
+					monthly_sma:data[10][data[1].length - 1],
+					MACD:data[11][data[11].length - 1],
 					data:data
 				}
 				plotStockStat(tableData, stockName)
@@ -418,9 +418,9 @@ function fuzzyQuery(str){
 function buy_sell(data){
 	let buy = 0;
 	let sell = 0;
-	let RSI = data[6][data[6].length - 1];
-	let allRSI = data[6];
-	let macdDiff = data[12];
+	let RSI = data[7][data[7].length - 1];
+	let allRSI = data[7];
+	let macdDiff = data[13];
 	let n = macdDiff.length
 	if (RSI >= 70){
 		return "This stock is overbought"
