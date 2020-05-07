@@ -97,7 +97,6 @@ function showViewResults() {
 }
 
 //require fuzzey
-const fuzzequery = require("./fuzzequery");
 function searchStock(searchTerm) {
 	if (isEmpty(searchTerm)) {
 		// openRandomArticle();
@@ -121,7 +120,6 @@ function searchStock(searchTerm) {
 			// getStockData(searchTerm);
 			// showViewResults();
 		}else{
-			// TODO wait for the stock checker function
 			$("#stockPlot").append(encapsulate("No results found", "p", ""));
 		}
 	}
@@ -130,22 +128,22 @@ function searchStock(searchTerm) {
 
 // use python program to search the stock information
 function getStockData(stockName){
-	// console.log("fire1");
+	console.log("fire1");
 	$.ajax({
 		url:"/",
         type: "GET",
 		dataType: "json",
 		data:{"stockName":stockName},
-        success: function (data, stock_name) {
+        success: function (data) {
 			if(data){
 				// console.log(data, stock_name)
 				// console.log(typeof(data))
-				// call the plotpy function here
+				// call the plotly function here
 				console.log("fire2");
 				plotStock(data, stockName) 
 				plotStockStat("noData", stockName)
 			}else{
-				// console.log("fire3");
+				console.log("fire3");
 			}
 			
 		},
@@ -176,6 +174,7 @@ function plotStock(data, stockName){
 		yaxis:"y"
 	},
 	{
+		// Close
 		x: data[0],
 		y:data[4],
 		mode:"lines",
@@ -185,6 +184,7 @@ function plotStock(data, stockName){
 		width:0.5
 	},
 	{
+		// Low
 		x: data[0],
 		y:data[2],
 		mode: 'lines',
@@ -193,6 +193,7 @@ function plotStock(data, stockName){
 		visible: false
 	},
 	{
+		// High
 		x: data[0],
 		y:data[1],
 		mode: 'lines',
@@ -201,6 +202,7 @@ function plotStock(data, stockName){
 		visible: false
 	},
 	{
+		// Clsoe Average
 		x: data[0],
 		y:data[0].map(a => closeAvg),
 		mode: 'lines',
@@ -209,6 +211,7 @@ function plotStock(data, stockName){
 		visible: false
 	},
 	{
+		// Low average
 		x: data[0],
 		y:data[0].map(a => lowAvg),
 		mode: 'lines',
@@ -217,12 +220,21 @@ function plotStock(data, stockName){
 		visible: false
 	},
 	{
+		// High average
 		x: data[0],
 		y:data[0].map(a => highAvg),
 		mode: 'lines',
 		name: 'High average',
 		line: {color: '#33CFA5',dash:"dash"},
 		visible: false
+	},
+	{
+		x:data[0],
+		y:data[9],
+		monde:"lines",
+		name:"month MA",
+		marker:{color:"#ff4aad"},
+		visible:false
 	}
 	]
 	// let formatedData = [trace]
@@ -268,27 +280,33 @@ function plotStock(data, stockName){
 		{
 			buttons:[
 				{
-					args: [{'visible': [true, false, false, false, false, false, false]},
+					args: [{'visible': [true, false, false, false, false, false, false, false]},
 							{'title': `${stockName} Candle`}],
 					label: 'Candle',
 					method: 'update'
 				},
 				{
-					args: [{'visible': [false, true, false, false, true, false, false]},
+					args: [{'visible': [false, true, false, false, true, false, false, false]},
 							{'title': `${stockName} Close`}],
 					label: 'Close',
 					method: 'update'
 				},
 				{
-					args: [{'visible': [false, false, true, false, false, true, false]},
+					args: [{'visible': [false, false, true, false, false, true, false, false]},
 						   {'title': `${stockName} Low`}],
 					label: 'Low',
 					method: 'update'
 				},
 				{
-					args: [{'visible': [false, false, false, true, false, false, true]},
+					args: [{'visible': [false, false, false, true, false, false, true, false]},
 						   {'title': `${stockName} High`}],
 					label: 'High',
+					method: 'update'
+				},
+				{
+					args: [{'visible': [true, false, false, false, false, false, false, true]},
+						   {'title': `${stockName} Month MA`}],
+					label: 'Month MA',
 					method: 'update'
 				}
 			]

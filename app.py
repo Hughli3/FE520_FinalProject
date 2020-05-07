@@ -4,6 +4,7 @@ import src.finance_data as stock_data
 import json
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
+import src.finance as indicator
 ##
 app = Flask(__name__)
 limiter = Limiter(
@@ -33,9 +34,13 @@ def index():
             end_date = datetime.date.today()
             # three years ago
             start_date = end_date - datetime.timedelta(days=1095)
-            My_stock = stock_data.stock(stock_name, stock_name, start_date, end_date)
-            data = My_stock.stock_data()
-            res = format_data(data)
+            my_stock = stock_data.stock(stock_name, stock_name, start_date, end_date)
+            data = my_stock.stock_data()
+            # my_indictor = indicator.Indicator(data)
+            # data_with_indicator, rsi_today, monthly_sma, macd_today = my_indictor.add_indicator()
+            # print(data_with_indicator.shape)
+            res = format_data(data_with_indicator)
+            
             # print(date)
             # Need to return the json data 
             return json.dumps(res, default = date_converter)
