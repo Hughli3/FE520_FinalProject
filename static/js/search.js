@@ -437,13 +437,25 @@ function buy_sell(data){
 	else{
 		let a = "";
 		for(i=1; i < 11;i++){
-			if (macdDiff[n - i] == 0 && macdDiff[n - i - 1] > 0){
+			if (macdDiff[n - i] < 0 && macdDiff[n - i - 1] > 0){
 				a = "Bearish,";
 				break
 			}
-			else if(macdDiff[n - i] == 0 && macdDiff[n - i] < 0){
+			else if(macdDiff[n - i] > 0 && macdDiff[n - i-1] < 0){
 				a = "Bullish,"
 				break
+			}
+		}
+
+		for(i=1; i < 11;i++){
+			if (macdDiff[n - i] < 0 && macdDiff[n - i - 1] > 0){
+				count = count + 1;
+			}
+			if(macdDiff[n - i] > 0 && macdDiff[n - i] < 0){
+				count = count + 1;
+			}
+			if (count > 2){
+			    a = ''
 			}
 		}
 
