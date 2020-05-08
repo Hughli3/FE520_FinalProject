@@ -432,10 +432,10 @@ function buy_sell(data){
 		return "This stock is oversold"
 	}
 	else if (RSI >= 65){
-		return "We suggest to sell"
+		return "recommend to sell"
 	}
 	else if(RSI <= 35){
-		return "We suggest to buy"
+		return "recommend to buy"
 	}
 	else{
 		let a = "";
