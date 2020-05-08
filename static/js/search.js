@@ -478,13 +478,13 @@ function buy_sell(data){
 		}
 		let suggest = buy - sell;
 		if (suggest >= 3){
-			return a + "strongly recommend to buy";
+			return a + "recommend to buy";
 		}else if(suggest < 3){
-			return a + "strongly recommend to sell"
+			return a + "recommend to sell"
 		}else if (suggest > 0){
-			return a + "you can consider to buy"
+			return a + "consider to buy"
 		}else if (suggest < 0){
-			return a + "you can consider to sell"
+			return a + "consider to sell"
 		}
 	}
 }
