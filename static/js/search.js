@@ -1,8 +1,4 @@
 $(document).ready(function() {
-	
-	// if (!inCodePenEditor()) {
-	// 	$("#search-input").focus();
-	// }
 
 	// mode of form elements changes on input
 	$("#search-input").on('input', function() {
@@ -49,9 +45,6 @@ $(document).ready(function() {
 
 });
 
-// function inCodePenEditor() {
-// 	return !/full|debug/.test(window.location.pathname);
-// }
 
 // ========================== change view function ==========================
 // initialise site view
@@ -106,19 +99,10 @@ function searchStock(searchTerm) {
 		searchTerm = fuzzyQuery(searchTerm);
 		if(searchTerm){
 			//add for fuzzy query
-			// readFileToArr('NYSE.txt',function(list){
-			// 	let arr = fuzzQuerry(list, searhTerm.toUpperCase());
-			// 	for(let i =0; i<arr.length;i++){
-			// 		arr[i] = (arr[i].split("\t"))[0];
-			// 	}
-			// 	searchTerm = arr[0];
 			// 	console.log(searchTerm);
 				getStockData(searchTerm);
 				showViewResults();
-			// })
-			// console.log(searchTerm);
-			// getStockData(searchTerm);
-			// showViewResults();
+
 		}else{
 			$("#stockPlot").append(encapsulate("No results found", "p", ""));
 		}
@@ -183,139 +167,194 @@ function plotStock(data, stockName){
 		yaxis:"y"
 	},
 	{
-		// Close
+		// Close 2
 		x: data[0],
 		y:data[4],
 		mode:"lines",
 		name:"Close",
 		marker: {color: '#835AF1'},
 		visible:false,
-		width:0.5
+		width:0.5,
+		yaxis:"y"
 	},
 	{
-		// Low
+		// Low 3
 		x: data[0],
 		y:data[2],
 		mode: 'lines',
 		name: 'Low',
 		marker: {color: '#F06A6A'},
-		visible: false
+		visible: false,
+		yaxis:"y"
 	},
 	{
-		// High
+		// High 4
 		x: data[0],
 		y:data[1],
 		mode: 'lines',
 		name: 'High',
 		marker: {color: '#33CFA5'},
-		visible: false
+		visible: false,
+		yaxis:"y"
 	},
 	{
-		// Clsoe Average
+		// Clsoe Average 5
 		x: data[0],
 		y:data[0].map(a => closeAvg),
 		mode: 'lines',
 		name: 'Close average',
 		line: {color: '#835AF1',dash:"dash"},
-		visible: false
+		visible: false,
+		yaxis:"y"
 	},
 	{
-		// Low average
+		// Low average 6
 		x: data[0],
 		y:data[0].map(a => lowAvg),
 		mode: 'lines',
 		name: 'Low average',
 		line: {color: '#F06A6A',dash:"dash"},
-		visible: false
+		visible: false,
+		yaxis:"y"
 	},
 	{
-		// High average
+		// High average 7
 		x: data[0],
 		y:data[0].map(a => highAvg),
 		mode: 'lines',
 		name: 'High average',
 		line: {color: '#33CFA5',dash:"dash"},
-		visible: false
+		visible: false,
+		yaxis:"y"
 	},
 	{
+		// 10 MA 8
+		x:data[0],
+		y:data[8],
+		mode:"lines",
+		name:"10 MA",
+		marker:{color:"#f4b80e"},
+		visible:false,
+		yaxis:"y"
+	},
+	{
+		// 10 MA 9
 		x:data[0],
 		y:data[9],
-		monde:"lines",
+		mode:"lines",
+		name:"20 MA",
+		marker:{color:"#f4b80e"},
+		visible:false,
+		yaxis:"y"
+	},
+	{
+		// month MA 10
+		x:data[0],
+		y:data[10],
+		mode:"lines",
 		name:"month MA",
 		marker:{color:"#f4b80e"},
-		visible:false
+		visible:false,
+		yaxis:"y"
+	},
+	{
+		// RSI 11
+		x:data[0],
+		y:data[7],
+		mode:"lines",
+		name:"RSI",
+		marker:{color:"#4f5fb7"},
+		visible:false,
+		yaxis:"y2"
+	},
+	{
+		// MACD 12
+		x:data[0],
+		y:data[11],
+		mode:"lines",
+		name:"MACD",
+		marker:{color:"#73808e"},
+		visible:false,
+		yaxis:"y3"
+	},
+	{
+		// MACD signal 13
+		x:data[0],
+		y:data[12],
+		mode:"lines",
+		name:"MACD Signal",
+		marker:{color:"#f6c3cb"},
+		visible:false,
+		yaxis:"y3"
 	}
 	]
-	// let formatedData = [trace]
 
 	let button_layer_1_height = 1.12;
 	let button_layer_2_height = 1.0;
 	let annotation_offset = 0.04;
 
 	let updatemenus = [
-		// {
-		// buttons:[
-		// 	{
-		// 		step: "all",
-		// 		label: "All dates"
-		// 	},
-		// 	{
-		// 		step:"month",
-		// 		stepmode:"backward",
-		// 		count:1,
-		// 		label:"1 month"
-		// 	},
-		// 	{
-		// 		step: "month",
-		// 		stepmode:"backward",
-		// 		count: 3,
-		// 		label: "3 months"
-		// 	},
-		// 	{
-		// 		step:"month",
-		// 		stepmode:"backward",
-		// 		count: 6,
-		// 		label:"6 months"
-		// 		}],
-		// 		direction: 'left',
-		// 		pad: {'r': 10, 't': 10},
-		// 		showactive: true,
-		// 		type: 'buttons',
-		// 		x: 0.1,
-		// 		xanchor: 'left',
-		// 		y: button_layer_1_height,
-		// 		yanchor: 'top'
-		// },
 		{
 			buttons:[
 				{
-					args: [{'visible': [true, false, false, false, false, false, false, false]},
+					args: [{'visible': [true, false, false, false, false, false, false, false, false, false ,false, false, false],},
 							{'title': `${stockName} Candle`}],
 					label: 'Candle',
 					method: 'update'
 				},
 				{
-					args: [{'visible': [false, true, false, false, true, false, false, false]},
+					args: [{'visible': [false, true, false, false, true, false, false, false, false, false ,false, false, false]},
 							{'title': `${stockName} Close`}],
 					label: 'Close',
 					method: 'update'
 				},
 				{
-					args: [{'visible': [false, false, true, false, false, true, false, false]},
+					args: [{'visible': [false, false, true, false, false, true, false, false, false, false ,false, false, false]},
 						   {'title': `${stockName} Low`}],
 					label: 'Low',
 					method: 'update'
 				},
 				{
-					args: [{'visible': [false, false, false, true, false, false, true, false]},
+					args: [{'visible': [false, false, false, true, false, false, true, false, false, false ,false, false, false]},
 						   {'title': `${stockName} High`}],
 					label: 'High',
 					method: 'update'
 				},
 				{
-					args: [{'visible': [true, false, false, false, false, false, false, true]},
-						   {'title': `${stockName} Month MA`}],
-					label: 'Month MA',
+					args: [{'visible': [true, false, false, false, false, false, false, true, false, false ,false, false, false]},
+						   {'title': `${stockName} 10 MA`}],
+					label: '10 MA',
+					method: 'update'
+				},
+				{
+					args: [{'visible': [true, false, false, false, false, false, false, false, true, false ,false, false, false]},
+						   {'title': `${stockName} 20 MA`}],
+					label: '20 MA',
+					method: 'update'
+				},
+				{
+					args: [{'visible': [true, false, false, false, false, false, false, false, false, true ,false, false, false]},
+						   {'title': `${stockName} month MA`}],
+					label: 'month MA',
+					method: 'update'
+				},
+				{
+					args: [{'visible': [true, false, false, false, false, false, false, false, false, false ,true, false, false]},
+						   {'title': `${stockName} RSI`,
+						   "yaxis2.visible":true, 
+						   "yaxis2.position":1,
+						   "yaxis3.visible":false}],
+					label: 'RSI',
+					method: 'update'
+				},
+				{
+					args: [{'visible': [true, false, false, false, false, false, false, false, false, false ,false, true, true]},	
+						   {'title': `${stockName} MACD`,
+						   "yaxis3.visible":true, 
+						   "yaxis3.position":1,
+						   "yaxis2.visible":false
+						}],
+					label: 'MACD',
 					method: 'update'
 				}
 			]
@@ -328,21 +367,34 @@ function plotStock(data, stockName){
 		showlegend: true,
 		type: 'date',
 		title:stockName,
-		// xaxis:{
-		// 	autorange: true,
-		// 	title:stockName,
-		// 	rangeselector:{
-		// 		x:0,
-		// 		y:1.2,
-		// 		xanchor:"left",
-		// 		font:{size:10}
-		// 	}
-		// },
-		updatemenus:updatemenus
-		// yaxis:{
-		// 	autorange:true,
-		// 	type: 'linear'
-		// }
+		updatemenus:updatemenus,
+		width: 1000,
+		yaxis:{
+
+		},
+		yaxis2: {
+			title: 'RSI',
+			titlefont: {color: '#4f5fb7'},
+			tickfont: {color: '#4f5fb7'},
+			anchor: 'free',
+			overlaying: 'y',
+			side: 'right',
+			range: [0, 100],
+			position:1,
+			visible:false,
+			zeroline:false
+		},
+		yaxis3: {
+			title: 'MACD',
+			titlefont: {color: '#73808e'},
+			tickfont: {color: '#73808e'},
+			anchor: 'free',
+			overlaying: 'y',
+			side: 'right',
+			autorange:true,
+			position:1,
+			visible:false
+		}
 	}
 	Plotly.newPlot("stockPlot", trace, layout);
 	showViewResults()
@@ -380,6 +432,35 @@ function plotStockStat(data, stockName){
 	]
 	Plotly.newPlot('stockTable', tableData);
 }
+
+// ========================== Table plot function ==========================
+// function plotIndicator(data){
+// 	let trace = [
+// 		{
+// 		x: data[0],
+// 		close:data[4],
+// 		high:data[1],
+// 		low:data[2],
+// 		open:data[3],
+// 		name:stockName,
+// 		increasing: {line: {color: 'green'}}, 
+// 		decreasing: {line: {color: 'red'}}, 
+// 		line: {color: 'rgba(31,119,180,1)'}, 
+// 		type: 'candlestick',
+// 		xaxis:"x",
+// 		yaxis:"y"
+// 	},
+// 	{
+// 		// Close
+// 		x: data[0],
+// 		y:data[4],
+// 		mode:"lines",
+// 		name:"Close",
+// 		marker: {color: '#835AF1'},
+// 		visible:false,
+// 		width:0.5
+// 	}]
+// }
 
 // ========================== Dom ==========================
 // wrap content in given html tags, with given attributes
