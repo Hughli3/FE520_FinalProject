@@ -439,6 +439,7 @@ function buy_sell(data){
 	}
 	else{
 		let a = "";
+		let count = 0;
 		for(i=1; i < 11;i++){
 			if (macdDiff[n - i] < 0 && macdDiff[n - i - 1] > 0){
 				a = "Bearish,";
