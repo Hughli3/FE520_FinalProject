@@ -554,7 +554,7 @@ function buy_sell(data){
 			else if (Math.min(allRSI.splice(n-20,n-1)) == RSI){
 				sell = 0
 			}
-			else if (Math.max(allRS.slice(n-20,n-1)) == RSI){
+			else if (Math.max(allRSI.slice(n-20,n-1)) == RSI){
 				buy = 0
 			}
 		}
