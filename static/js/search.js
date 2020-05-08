@@ -289,52 +289,66 @@ function plotStock(data, stockName){
 	}
 	]
 
-	let button_layer_1_height = 1.12;
-	let button_layer_2_height = 1.0;
-	let annotation_offset = 0.04;
+	// let button_layer_1_height = 1.12;
+	// let button_layer_2_height = 1.0;
+	// let annotation_offset = 0.04;
 
 	let updatemenus = [
 		{
 			buttons:[
 				{
 					args: [{'visible': [true, false, false, false, false, false, false, false, false, false ,false, false, false],},
-							{'title': `${stockName} Candle`}],
+							{'title': `${stockName} Candle`,
+							"yaxis3.visible":false, 
+							"yaxis2.visible":false}],
 					label: 'Candle',
 					method: 'update'
 				},
 				{
 					args: [{'visible': [false, true, false, false, true, false, false, false, false, false ,false, false, false]},
-							{'title': `${stockName} Close`}],
+							{'title': `${stockName} Close`,
+							"yaxis3.visible":false, 
+							"yaxis2.visible":false}],
 					label: 'Close',
 					method: 'update'
 				},
 				{
 					args: [{'visible': [false, false, true, false, false, true, false, false, false, false ,false, false, false]},
-						   {'title': `${stockName} Low`}],
+						   {'title': `${stockName} Low`,
+						   "yaxis3.visible":false, 
+						   "yaxis2.visible":false}],
 					label: 'Low',
 					method: 'update'
 				},
 				{
 					args: [{'visible': [false, false, false, true, false, false, true, false, false, false ,false, false, false]},
-						   {'title': `${stockName} High`}],
+						   {'title': `${stockName} High`,
+						   "yaxis3.visible":false, 
+						   "yaxis2.visible":false}],
 					label: 'High',
 					method: 'update'
 				},
 				{
 					args: [{'visible': [true, false, false, false, false, false, false, true, false, false ,false, false, false]},
-						   {'title': `${stockName} 10 MA`}],
+						   {'title': `${stockName} 10 MA`,
+						   "yaxis3.visible":false, 
+						   "yaxis2.visible":false}],
 					label: '10 MA',
 					method: 'update'
 				},
 				{
 					args: [{'visible': [true, false, false, false, false, false, false, false, true, false ,false, false, false]},
-						   {'title': `${stockName} 20 MA`}],
+						   {'title': `${stockName} 20 MA`,
+						   "yaxis3.visible":false, 
+						   "yaxis2.visible":false}],
 					label: '20 MA',
 					method: 'update'
 				},
 				{
 					args: [{'visible': [true, false, false, false, false, false, false, false, false, true ,false, false, false]},
-						   {'title': `${stockName} month MA`}],
+						   {'title': `${stockName} month MA`,
+						   "yaxis3.visible":false, 
+						   "yaxis2.visible":false}],
 					label: 'month MA',
 					method: 'update'
 				},
@@ -433,34 +447,6 @@ function plotStockStat(data, stockName){
 	Plotly.newPlot('stockTable', tableData);
 }
 
-// ========================== Table plot function ==========================
-// function plotIndicator(data){
-// 	let trace = [
-// 		{
-// 		x: data[0],
-// 		close:data[4],
-// 		high:data[1],
-// 		low:data[2],
-// 		open:data[3],
-// 		name:stockName,
-// 		increasing: {line: {color: 'green'}}, 
-// 		decreasing: {line: {color: 'red'}}, 
-// 		line: {color: 'rgba(31,119,180,1)'}, 
-// 		type: 'candlestick',
-// 		xaxis:"x",
-// 		yaxis:"y"
-// 	},
-// 	{
-// 		// Close
-// 		x: data[0],
-// 		y:data[4],
-// 		mode:"lines",
-// 		name:"Close",
-// 		marker: {color: '#835AF1'},
-// 		visible:false,
-// 		width:0.5
-// 	}]
-// }
 
 // ========================== Dom ==========================
 // wrap content in given html tags, with given attributes
@@ -472,12 +458,7 @@ function encapsulate(content, tag, attr) {
 	}
 }
 
-// Manually set height of card image element
-// function setCardImgHeight() {
-// 	$(".card-image img", "#stockPlot").css('height', function() {
-// 		return Math.round($(this).width() * 0.75);
-// 	});
-// }
+
 
 // ========================== search optimization ==========================
 
