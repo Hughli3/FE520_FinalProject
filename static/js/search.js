@@ -382,7 +382,7 @@ function plotStock(data, stockName){
 		type: 'date',
 		title:stockName,
 		updatemenus:updatemenus,
-		width: 1000,
+		width: 1200,
 		yaxis:{
 
 		},
