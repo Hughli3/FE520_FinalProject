@@ -470,7 +470,8 @@ function fuzzyQuery(str){
     for(let i=0;i<list.length;i++){
         //match the code first
         if( (list[i].code).match(str) !=null){
-            arr.push(list[i].code);
+			//arr.push(list[i].code);
+			return list[i].code;
         }else if( ((list[i].name)).toUpperCase().match(str) !=null){
             arr.push(list[i].code);
         }
