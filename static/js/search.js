@@ -239,7 +239,7 @@ function plotStock(data, stockName){
 		y:data[9],
 		monde:"lines",
 		name:"month MA",
-		marker:{color:"#ff4aad"},
+		marker:{color:"#f4b80e"},
 		visible:false
 	}
 	]

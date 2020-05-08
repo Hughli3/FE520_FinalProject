@@ -85,9 +85,10 @@ body {
 #banner-overlay,
 #search-container {
 	position: fixed;
-	height: 75%;
+	height: 100%;
 	width: 100%;
 	transition: height 100ms ease-in;
+	z-index: 3;
 }
 
 .view-results #banner-bkgrd,
