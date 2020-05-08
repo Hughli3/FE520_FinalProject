@@ -147,7 +147,10 @@ function getStockData(stockName){
 					MACD:data[11][data[11].length - 1],
 					data:data
 				}
-				plotStockStat(tableData, stockName)
+				if(stockName!="^GSPC"){
+					plotStockStat(tableData, stockName)
+				}
+				
 			}else{
 				console.log("fire3");
 			}
